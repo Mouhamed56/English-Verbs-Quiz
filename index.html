@@ -1,0 +1,684 @@
+<!doctype html>
+<html lang="fr" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>English Verb Master</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="/_sdk/data_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Space Grotesk', sans-serif; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    @keyframes slide-up {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .float-animation { animation: float 3s ease-in-out infinite; }
+    .slide-up { animation: slide-up 0.5s ease-out forwards; }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+ </head>
+ <body class="h-full bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 overflow-auto">
+  <div id="app" class="min-h-full w-full relative">
+   <div class="fixed inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute top-20 left-10 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl float-animation"></div>
+    <div class="absolute bottom-20 right-10 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl float-animation" style="animation-delay: 1s;"></div>
+   </div>
+   <div class="relative z-10 max-w-6xl mx-auto px-4 py-8"><!-- Header -->
+    <header class="text-center mb-10 slide-up">
+     <h1 id="app-title" class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-white via-indigo-200 to-purple-200 bg-clip-text text-transparent mb-3">English Verb Master</h1>
+     <p id="welcome-message" class="text-lg text-indigo-200/80">Maîtrisez les verbes irréguliers anglais</p>
+    </header><!-- Navigation Tabs -->
+    <div class="flex justify-center gap-2 mb-8 slide-up" style="animation-delay: 0.1s;"><button onclick="showSection('home')" id="tab-home" class="px-6 py-3 rounded-xl font-semibold transition-all bg-white text-indigo-600 shadow-lg">🏠 Accueil</button> <button onclick="showSection('quiz')" id="tab-quiz" class="px-6 py-3 rounded-xl font-semibold transition-all bg-white/20 text-white/80 hover:bg-white/30">❓ Quiz</button> <button onclick="showSection('learn')" id="tab-learn" class="px-6 py-3 rounded-xl font-semibold transition-all bg-white/20 text-white/80 hover:bg-white/30">📚 Verbes</button> <button onclick="showSection('progress')" id="tab-progress" class="px-6 py-3 rounded-xl font-semibold transition-all bg-white/20 text-white/80 hover:bg-white/30">📊 Progrès</button>
+    </div><!-- HOME SECTION -->
+    <section id="section-home" class="slide-up" style="animation-delay: 0.2s;">
+     <div class="space-y-8"><!-- Main Hero -->
+      <div class="bg-gradient-to-br from-indigo-600 to-purple-700 rounded-3xl p-12 md:p-16 text-white shadow-2xl">
+       <h2 class="text-4xl md:text-5xl font-bold mb-6">Bienvenue ! 👋</h2>
+       <p class="text-xl text-indigo-100 mb-8 leading-relaxed">Maîtrisez les 80 verbes irréguliers anglais avec des quiz interactifs, du suivi de progression et une méthode qui fonctionne vraiment.</p>
+       <div class="flex flex-wrap gap-4"><button onclick="showSection('quiz')" class="px-8 py-4 bg-white text-indigo-600 font-bold rounded-xl hover:bg-indigo-50 shadow-lg transform hover:scale-105 transition-all">Commencer un Quiz →</button> <button onclick="showSection('learn')" class="px-8 py-4 bg-white/20 text-white font-bold rounded-xl hover:bg-white/30 border-2 border-white/50">Voir tous les verbes</button>
+       </div>
+      </div><!-- Features Grid -->
+      <div class="grid md:grid-cols-2 gap-6">
+       <div class="bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl p-8 text-white shadow-xl">
+        <div class="flex gap-4 items-start"><span class="text-4xl">⚡</span>
+         <div>
+          <h3 class="text-xl font-bold mb-2">Apprentissage Rapide</h3>
+          <p class="text-emerald-100">Quiz de 10 questions en 5 minutes. Parfait pour l'apprentissage quotidien.</p>
+         </div>
+        </div>
+       </div>
+       <div class="bg-gradient-to-br from-amber-500 to-orange-600 rounded-2xl p-8 text-white shadow-xl">
+        <div class="flex gap-4 items-start"><span class="text-4xl">📈</span>
+         <div>
+          <h3 class="text-xl font-bold mb-2">Progression Visible</h3>
+          <p class="text-amber-100">Suivez vos progrès avec des statistiques détaillées pour chaque verbe.</p>
+         </div>
+        </div>
+       </div>
+       <div class="bg-gradient-to-br from-pink-500 to-rose-600 rounded-2xl p-8 text-white shadow-xl">
+        <div class="flex gap-4 items-start"><span class="text-4xl">🎯</span>
+         <div>
+          <h3 class="text-xl font-bold mb-2">Quiz Adaptatifs</h3>
+          <p class="text-pink-100">Focalisez sur vos points faibles ou découvrez les nouveaux verbes.</p>
+         </div>
+        </div>
+       </div>
+       <div class="bg-gradient-to-br from-blue-500 to-cyan-600 rounded-2xl p-8 text-white shadow-xl">
+        <div class="flex gap-4 items-start"><span class="text-4xl">🌟</span>
+         <div>
+          <h3 class="text-xl font-bold mb-2">Amusant &amp; Motivant</h3>
+          <p class="text-blue-100">Débloquez des étoiles et bâtissez des séries en répondant correctement !</p>
+         </div>
+        </div>
+       </div>
+      </div><!-- How It Works -->
+      <div class="bg-white/95 rounded-3xl p-12 shadow-2xl">
+       <h3 class="text-3xl font-bold text-slate-800 mb-12 text-center">Comment ça marche ? 🚀</h3>
+       <div class="grid md:grid-cols-3 gap-8">
+        <div class="text-center">
+         <div class="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6 text-white text-3xl font-bold shadow-lg">
+          1
+         </div>
+         <h4 class="text-xl font-bold text-slate-800 mb-3">Choisissez un Mode</h4>
+         <p class="text-slate-600">Tous les verbes, points faibles, ou découvrez les nouveaux.</p>
+        </div>
+        <div class="text-center">
+         <div class="w-16 h-16 bg-gradient-to-br from-amber-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-6 text-white text-3xl font-bold shadow-lg">
+          2
+         </div>
+         <h4 class="text-xl font-bold text-slate-800 mb-3">Répondez</h4>
+         <p class="text-slate-600">Entrez le prétérit et participe passé. Feedback immédiat.</p>
+        </div>
+        <div class="text-center">
+         <div class="w-16 h-16 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-full flex items-center justify-center mx-auto mb-6 text-white text-3xl font-bold shadow-lg">
+          3
+         </div>
+         <h4 class="text-xl font-bold text-slate-800 mb-3">Maîtrisez</h4>
+         <p class="text-slate-600">3 bonnes réponses = verbe maîtrisé avec étoile ⭐</p>
+        </div>
+       </div>
+      </div><!-- Stats Preview -->
+      <div class="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-3xl p-12 text-center text-white shadow-2xl">
+       <h3 class="text-2xl font-bold mb-4">Commencez votre progression maintenant !</h3>
+       <p class="text-indigo-100 mb-8"> 80 verbes irréguliers. Quiz adaptatif. Progression visible.</p><button onclick="showSection('quiz')" class="px-10 py-4 bg-white text-indigo-600 font-bold text-lg rounded-xl hover:bg-indigo-50 shadow-lg transform hover:scale-105 transition-all">Démarrer →</button>
+      </div>
+     </div>
+     <footer class="text-center text-indigo-200 py-8 mt-10">
+
+<p class="text-sm">
+© 2026 English Verb Master
+</p>
+
+<p class="text-sm mt-2">
+Jeu éducatif développé par 
+<a href="https://sendigitalinnovation.com/" 
+target="_blank"
+class="text-indigo-300 font-semibold hover:text-white underline">
+Sen Digital Innovation
+</a>
+</p>
+
+</footer>
+    </section><!-- QUIZ SECTION -->
+    <section id="section-quiz" class="hidden slide-up">
+     <div class="bg-white/95 rounded-3xl p-8 shadow-2xl"><!-- Stats Bar -->
+      <div class="grid grid-cols-4 gap-4 mb-8">
+       <div class="text-center">
+        <div class="text-2xl font-bold text-indigo-600" id="q-correct">
+         0
+        </div>
+        <div class="text-xs text-slate-600">
+         ✓ Correct
+        </div>
+       </div>
+       <div class="text-center">
+        <div class="text-2xl font-bold text-red-600" id="q-wrong">
+         0
+        </div>
+        <div class="text-xs text-slate-600">
+         ✗ Incorrect
+        </div>
+       </div>
+       <div class="text-center">
+        <div class="text-2xl font-bold text-amber-600" id="q-streak">
+         0
+        </div>
+        <div class="text-xs text-slate-600">
+         🔥 Série
+        </div>
+       </div>
+       <div class="text-center">
+        <div class="text-2xl font-bold text-purple-600" id="q-progress">
+         1
+        </div>
+        <div class="text-xs text-slate-600">
+         /10
+        </div>
+       </div>
+      </div><!-- Quiz Mode Selector -->
+      <div class="flex justify-center gap-3 mb-8"><button onclick="setQuizMode('all')" id="mode-all" class="px-4 py-2 rounded-lg text-sm font-medium bg-indigo-100 text-indigo-700">Tous</button> <button onclick="setQuizMode('weak')" id="mode-weak" class="px-4 py-2 rounded-lg text-sm font-medium bg-slate-100 text-slate-600 hover:bg-slate-200">Points faibles</button> <button onclick="setQuizMode('new')" id="mode-new" class="px-4 py-2 rounded-lg text-sm font-medium bg-slate-100 text-slate-600 hover:bg-slate-200">Non pratiqués</button>
+      </div><!-- Quiz Card -->
+      <div id="quiz-card" class="text-center mb-8">
+       <div class="mb-8">
+        <div class="text-sm uppercase text-slate-400 mb-3">
+         Verbe
+        </div>
+        <div id="verb-base" class="text-5xl md:text-6xl font-bold text-slate-800 mono mb-3">
+         spell
+        </div>
+        <div id="verb-trans" class="text-lg text-slate-600">
+         épeler, orthographier
+        </div>
+       </div>
+       <div class="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto mb-8">
+        <div><label class="block text-sm font-medium text-slate-600 mb-2">Simple Past</label> <input type="text" id="input-past" class="w-full px-4 py-3 text-lg text-center mono bg-slate-50 border-2 border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="???" autocomplete="off">
+        </div>
+        <div><label class="block text-sm font-medium text-slate-600 mb-2">Past Participle</label> <input type="text" id="input-part" class="w-full px-4 py-3 text-lg text-center mono bg-slate-50 border-2 border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="???" autocomplete="off">
+        </div>
+       </div>
+       <div id="feedback" class="hidden mb-6 p-4 rounded-xl"></div>
+       <div class="flex justify-center gap-4"><button onclick="checkAnswer()" id="btn-check" class="px-8 py-3 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700">Vérifier</button> <button onclick="nextQuestion()" id="btn-next" class="hidden px-8 py-3 bg-emerald-600 text-white font-bold rounded-xl hover:bg-emerald-700">Suivant →</button> <button onclick="showHint()" id="btn-hint" class="px-6 py-3 bg-amber-100 text-amber-700 font-bold rounded-xl hover:bg-amber-200">Indice</button>
+       </div>
+      </div><!-- Quiz Complete -->
+      <div id="quiz-done" class="hidden text-center">
+       <div class="text-6xl mb-4">
+        🎉
+       </div>
+       <h2 class="text-3xl font-bold text-slate-800 mb-6">Quiz Terminé !</h2>
+       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto mb-8">
+        <div class="bg-emerald-50 rounded-xl p-4">
+         <div class="text-3xl font-bold text-emerald-600" id="res-ok">
+          0
+         </div>
+         <div class="text-sm text-emerald-700">
+          Correct
+         </div>
+        </div>
+        <div class="bg-red-50 rounded-xl p-4">
+         <div class="text-3xl font-bold text-red-600" id="res-bad">
+          0
+         </div>
+         <div class="text-sm text-red-700">
+          Incorrect
+         </div>
+        </div>
+        <div class="bg-purple-50 rounded-xl p-4">
+         <div class="text-3xl font-bold text-purple-600" id="res-acc">
+          0%
+         </div>
+         <div class="text-sm text-purple-700">
+          Précision
+         </div>
+        </div>
+        <div class="bg-amber-50 rounded-xl p-4">
+         <div class="text-3xl font-bold text-amber-600" id="res-best">
+          0
+         </div>
+         <div class="text-sm text-amber-700">
+          Meilleure
+         </div>
+        </div>
+       </div><button onclick="startNewQuiz()" class="px-8 py-3 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700">Nouveau Quiz</button>
+      </div>
+     </div>
+    </section><!-- LEARN SECTION -->
+    <section id="section-learn" class="hidden">
+     <div class="bg-white/95 rounded-3xl p-8 shadow-2xl">
+      <h2 class="text-2xl font-bold text-slate-800 mb-6">📚 Les 80 Verbes Irréguliers</h2><input type="text" id="search" placeholder="Rechercher..." class="w-full px-4 py-2 mb-6 rounded-xl border-2 border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500" oninput="filterVerbs(this.value)">
+      <div id="verbs-list" class="grid gap-3 md:grid-cols-2 lg:grid-cols-3 max-h-96 overflow-y-auto">
+      </div>
+     </div>
+    </section><!-- PROGRESS SECTION -->
+    <section id="section-progress" class="hidden">
+     <div class="bg-white/95 rounded-3xl p-8 shadow-2xl">
+      <h2 class="text-2xl font-bold text-slate-800 mb-8">📊 Votre Progression</h2>
+      <div class="grid md:grid-cols-3 gap-6 mb-8">
+       <div class="bg-emerald-50 rounded-2xl p-6 text-center">
+        <div class="text-3xl font-bold text-emerald-600" id="stat-mas">
+         0
+        </div>
+        <div class="text-emerald-700 font-medium">
+         Maîtrisés ⭐
+        </div>
+       </div>
+       <div class="bg-amber-50 rounded-2xl p-6 text-center">
+        <div class="text-3xl font-bold text-amber-600" id="stat-learn">
+         0
+        </div>
+        <div class="text-amber-700 font-medium">
+         En cours 📚
+        </div>
+       </div>
+       <div class="bg-slate-100 rounded-2xl p-6 text-center">
+        <div class="text-3xl font-bold text-slate-600" id="stat-new">
+         80
+        </div>
+        <div class="text-slate-700 font-medium">
+         À découvrir
+        </div>
+       </div>
+      </div>
+      <div id="progress-list" class="space-y-3 max-h-80 overflow-y-auto">
+      </div>
+      <div class="mt-6 pt-6 border-t border-slate-200"><button onclick="if(confirm('Réinitialiser tous les progrès ?')) resetProgress()" class="px-6 py-2 bg-red-100 text-red-700 font-medium rounded-lg hover:bg-red-200">Réinitialiser</button>
+      </div>
+     </div>
+    </section>
+   </div>
+  </div>
+  <script>
+    // VERBS DATABASE
+    const VERBS = [
+     
+
+{ base:"arise", past:"arose", part:"arisen", trans:"surgir" },
+{ base:"awake", past:"awoke", part:"awoken", alt_past:"awaked", alt_part:"awaked", trans:"se réveiller" },
+{ base:"be", past:"was/were", part:"been", trans:"être" },
+{ base:"bear", past:"bore", part:"borne/born", trans:"porter" },
+{ base:"beat", past:"beat", part:"beaten", trans:"battre" },
+{ base:"become", past:"became", part:"become", trans:"devenir" },
+{ base:"begin", past:"began", part:"begun", trans:"commencer" },
+{ base:"bend", past:"bent", part:"bent", trans:"plier" },
+{ base:"bet", past:"bet", part:"bet", alt_past:"betted", alt_part:"betted", trans:"parier" },
+{ base:"bind", past:"bound", part:"bound", trans:"lier" },
+{ base:"bite", past:"bit", part:"bitten", trans:"mordre" },
+{ base:"bleed", past:"bled", part:"bled", trans:"saigner" },
+{ base:"blow", past:"blew", part:"blown", trans:"souffler" },
+{ base:"break", past:"broke", part:"broken", trans:"casser" },
+{ base:"bring", past:"brought", part:"brought", trans:"apporter" },
+{ base:"build", past:"built", part:"built", trans:"construire" },
+{ base:"burn", past:"burnt", part:"burnt", alt_past:"burned", alt_part:"burned", trans:"brûler" },
+{ base:"burst", past:"burst", part:"burst", trans:"éclater" },
+{ base:"buy", past:"bought", part:"bought", trans:"acheter" },
+{ base:"catch", past:"caught", part:"caught", trans:"attraper" },
+{ base:"choose", past:"chose", part:"chosen", trans:"choisir" },
+{ base:"come", past:"came", part:"come", trans:"venir" },
+{ base:"cost", past:"cost", part:"cost", trans:"coûter" },
+{ base:"cut", past:"cut", part:"cut", trans:"couper" },
+{ base:"deal", past:"dealt", part:"dealt", trans:"traiter" },
+{ base:"dig", past:"dug", part:"dug", trans:"creuser" },
+{ base:"do", past:"did", part:"done", trans:"faire" },
+{ base:"draw", past:"drew", part:"drawn", trans:"dessiner" },
+{ base:"dream", past:"dreamt", part:"dreamt", alt_past:"dreamed", alt_part:"dreamed", trans:"rêver" },
+{ base:"drink", past:"drank", part:"drunk", trans:"boire" },
+{ base:"drive", past:"drove", part:"driven", trans:"conduire" },
+{ base:"eat", past:"ate", part:"eaten", trans:"manger" },
+{ base:"fall", past:"fell", part:"fallen", trans:"tomber" },
+{ base:"feed", past:"fed", part:"fed", trans:"nourrir" },
+{ base:"feel", past:"felt", part:"felt", trans:"sentir" },
+{ base:"fight", past:"fought", part:"fought", trans:"se battre" },
+{ base:"find", past:"found", part:"found", trans:"trouver" },
+{ base:"fly", past:"flew", part:"flown", trans:"voler" },
+{ base:"forget", past:"forgot", part:"forgotten", trans:"oublier" },
+{ base:"forgive", past:"forgave", part:"forgiven", trans:"pardonner" },
+{ base:"freeze", past:"froze", part:"frozen", trans:"geler" },
+{ base:"get", past:"got", part:"gotten", alt_part:"got", trans:"obtenir" },
+{ base:"give", past:"gave", part:"given", trans:"donner" },
+{ base:"go", past:"went", part:"gone", trans:"aller" },
+{ base:"grow", past:"grew", part:"grown", trans:"grandir" },
+{ base:"have", past:"had", part:"had", trans:"avoir" },
+{ base:"hear", past:"heard", part:"heard", trans:"entendre" },
+{ base:"hide", past:"hid", part:"hidden", trans:"cacher" },
+{ base:"hit", past:"hit", part:"hit", trans:"frapper" },
+{ base:"hold", past:"held", part:"held", trans:"tenir" },
+{ base:"hurt", past:"hurt", part:"hurt", trans:"blesser" },
+{ base:"keep", past:"kept", part:"kept", trans:"garder" },
+{ base:"know", past:"knew", part:"known", trans:"savoir" },
+{ base:"leave", past:"left", part:"left", trans:"quitter" },
+{ base:"lend", past:"lent", part:"lent", trans:"prêter" },
+{ base:"let", past:"let", part:"let", trans:"laisser" },
+{ base:"lose", past:"lost", part:"lost", trans:"perdre" },
+{ base:"make", past:"made", part:"made", trans:"faire" },
+{ base:"meet", past:"met", part:"met", trans:"rencontrer" },
+{ base:"pay", past:"paid", part:"paid", trans:"payer" },
+{ base:"put", past:"put", part:"put", trans:"mettre" },
+{ base:"read", past:"read", part:"read", trans:"lire" },
+{ base:"ride", past:"rode", part:"ridden", trans:"monter" },
+{ base:"ring", past:"rang", part:"rung", trans:"sonner" },
+{ base:"rise", past:"rose", part:"risen", trans:"se lever" },
+{ base:"run", past:"ran", part:"run", trans:"courir" },
+{ base:"say", past:"said", part:"said", trans:"dire" },
+{ base:"see", past:"saw", part:"seen", trans:"voir" },
+{ base:"sell", past:"sold", part:"sold", trans:"vendre" },
+{ base:"send", past:"sent", part:"sent", trans:"envoyer" },
+{ base:"set", past:"set", part:"set", trans:"placer" },
+{ base:"shake", past:"shook", part:"shaken", trans:"secouer" },
+{ base:"shine", past:"shone", part:"shone", trans:"briller" },
+{ base:"shoot", past:"shot", part:"shot", trans:"tirer" },
+{ base:"show", past:"showed", part:"shown", trans:"montrer" },
+{ base:"sing", past:"sang", part:"sung", trans:"chanter" },
+{ base:"sit", past:"sat", part:"sat", trans:"s'asseoir" },
+{ base:"sleep", past:"slept", part:"slept", trans:"dormir" },
+{ base:"speak", past:"spoke", part:"spoken", trans:"parler" },
+{ base:"spend", past:"spent", part:"spent", trans:"dépenser" },
+{ base:"stand", past:"stood", part:"stood", trans:"être debout" },
+{ base:"swim", past:"swam", part:"swum", trans:"nager" },
+{ base:"take", past:"took", part:"taken", trans:"prendre" },
+{ base:"teach", past:"taught", part:"taught", trans:"enseigner" },
+{ base:"tell", past:"told", part:"told", trans:"dire" },
+{ base:"think", past:"thought", part:"thought", trans:"penser" },
+{ base:"throw", past:"threw", part:"thrown", trans:"jeter" },
+{ base:"understand", past:"understood", part:"understood", trans:"comprendre" },
+{ base:"wear", past:"wore", part:"worn", trans:"porter" },
+{ base:"win", past:"won", part:"won", trans:"gagner" },
+{ base:"write", past:"wrote", part:"written", trans:"écrire" }
+    ];
+
+    // STATE
+    let progress = [];
+    let currentVerb = null;
+    let quizVerbs = [];
+    let qIdx = 0;
+    let correct = 0, wrong = 0, streak = 0, bestStreak = 0;
+    let mode = 'all';
+    let hintUsed = false;
+
+    const defaultConfig = {
+      app_title: "English Verb Master",
+      welcome_message: "Maîtrisez les verbes irréguliers anglais"
+    };
+
+    // SDK INIT
+    const dataHandler = {
+      onDataChanged(data) {
+        progress = data;
+        updateStats();
+      }
+    };
+
+    async function initApp() {
+      if (window.elementSdk) {
+        window.elementSdk.init({
+          defaultConfig,
+          onConfigChange: async (cfg) => {
+            document.getElementById('app-title').textContent = cfg.app_title || defaultConfig.app_title;
+            document.getElementById('welcome-message').textContent = cfg.welcome_message || defaultConfig.welcome_message;
+          },
+          mapToCapabilities: (cfg) => ({
+            recolorables: [],
+            borderables: [],
+            fontEditable: undefined,
+            fontSizeable: undefined
+          }),
+          mapToEditPanelValues: (cfg) => new Map([
+            ["app_title", cfg.app_title || defaultConfig.app_title],
+            ["welcome_message", cfg.welcome_message || defaultConfig.welcome_message]
+          ])
+        });
+      }
+
+      if (window.dataSdk) {
+        await window.dataSdk.init(dataHandler);
+      }
+
+      renderVerbs();
+      updateStats();
+      startNewQuiz();
+    }
+
+    function showSection(sect) {
+      ['home', 'quiz', 'learn', 'progress'].forEach(s => {
+        const el = document.getElementById(`section-${s}`);
+        const tab = document.getElementById(`tab-${s}`);
+        if (el) el.classList.add('hidden');
+        if (tab) tab.className = 'px-6 py-3 rounded-xl font-semibold transition-all bg-white/20 text-white/80 hover:bg-white/30';
+      });
+      document.getElementById(`section-${sect}`).classList.remove('hidden');
+      document.getElementById(`tab-${sect}`).className = 'px-6 py-3 rounded-xl font-semibold transition-all bg-white text-indigo-600 shadow-lg';
+    }
+
+    function setQuizMode(m) {
+      mode = m;
+      ['all', 'weak', 'new'].forEach(x => {
+        document.getElementById(`mode-${x}`).className = x === m 
+          ? 'px-4 py-2 rounded-lg text-sm font-medium bg-indigo-100 text-indigo-700'
+          : 'px-4 py-2 rounded-lg text-sm font-medium bg-slate-100 text-slate-600 hover:bg-slate-200';
+      });
+      startNewQuiz();
+    }
+
+    function startNewQuiz() {
+      correct = wrong = streak = 0;
+      qIdx = 0;
+      hintUsed = false;
+
+      let available = [...VERBS];
+      if (mode === 'weak') {
+        const weak = progress.filter(p => p.wrong_count > p.correct_count);
+        if (weak.length > 0) available = VERBS.filter(v => weak.some(w => w.verb_base === v.base));
+      } else if (mode === 'new') {
+        const done = progress.map(p => p.verb_base);
+        available = VERBS.filter(v => !done.includes(v.base));
+      }
+
+      quizVerbs = shuffle(available).slice(0, 10);
+      document.getElementById('quiz-card').classList.remove('hidden');
+      document.getElementById('quiz-done').classList.add('hidden');
+      loadQ();
+    }
+
+    function loadQ() {
+      if (qIdx >= quizVerbs.length) {
+        showQuizDone();
+        return;
+      }
+
+      currentVerb = quizVerbs[qIdx];
+      hintUsed = false;
+      document.getElementById('q-progress').textContent = qIdx + 1;
+      document.getElementById('verb-base').textContent = currentVerb.base;
+      document.getElementById('verb-trans').textContent = currentVerb.trans;
+      document.getElementById('input-past').value = '';
+      document.getElementById('input-part').value = '';
+      document.getElementById('input-past').disabled = false;
+      document.getElementById('input-part').disabled = false;
+      document.getElementById('input-past').className = 'w-full px-4 py-3 text-lg text-center mono bg-slate-50 border-2 border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500';
+      document.getElementById('input-part').className = 'w-full px-4 py-3 text-lg text-center mono bg-slate-50 border-2 border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500';
+      document.getElementById('feedback').classList.add('hidden');
+      document.getElementById('btn-check').classList.remove('hidden');
+      document.getElementById('btn-next').classList.add('hidden');
+    }
+
+    function checkAnswer() {
+      const p = document.getElementById('input-past').value.trim().toLowerCase();
+      const part = document.getElementById('input-part').value.trim().toLowerCase();
+
+      const pOk = [currentVerb.past.toLowerCase(), currentVerb.alt_past?.toLowerCase()].includes(p);
+      const partOk = [currentVerb.part.toLowerCase(), currentVerb.alt_part?.toLowerCase()].includes(part);
+      const ok = pOk && partOk;
+
+      document.getElementById('input-past').className = pOk 
+        ? 'w-full px-4 py-3 text-lg text-center mono bg-emerald-50 border-2 border-emerald-500 rounded-xl'
+        : 'w-full px-4 py-3 text-lg text-center mono bg-red-50 border-2 border-red-500 rounded-xl';
+      document.getElementById('input-part').className = partOk
+        ? 'w-full px-4 py-3 text-lg text-center mono bg-emerald-50 border-2 border-emerald-500 rounded-xl'
+        : 'w-full px-4 py-3 text-lg text-center mono bg-red-50 border-2 border-red-500 rounded-xl';
+
+      const fb = document.getElementById('feedback');
+      fb.classList.remove('hidden');
+
+      if (ok) {
+        correct++;
+        streak++;
+        if (streak > bestStreak) bestStreak = streak;
+        fb.className = 'p-4 rounded-xl bg-emerald-50 border-2 border-emerald-200 text-emerald-700 font-bold';
+        fb.textContent = '✓ Excellente réponse ! 🎉';
+      } else {
+        wrong++;
+        streak = 0;
+        fb.className = 'p-4 rounded-xl bg-red-50 border-2 border-red-200 text-red-700 font-bold';
+        fb.textContent = `✗ Réponses: ${currentVerb.past} / ${currentVerb.part}`;
+      }
+
+      document.getElementById('q-correct').textContent = correct;
+      document.getElementById('q-wrong').textContent = wrong;
+      document.getElementById('q-streak').textContent = streak;
+
+      updateVerbProg(currentVerb.base, ok);
+
+      document.getElementById('btn-check').classList.add('hidden');
+      document.getElementById('btn-next').classList.remove('hidden');
+      document.getElementById('input-past').disabled = true;
+      document.getElementById('input-part').disabled = true;
+    }
+
+    function nextQuestion() {
+      qIdx++;
+      loadQ();
+    }
+
+    function showHint() {
+      if (hintUsed) return;
+      hintUsed = true;
+      const p = document.getElementById('input-past');
+      const part = document.getElementById('input-part');
+      if (!p.value) p.value = currentVerb.past[0] + '...';
+      if (!part.value) part.value = currentVerb.part[0] + '...';
+    }
+
+    function showQuizDone() {
+      document.getElementById('quiz-card').classList.add('hidden');
+      document.getElementById('quiz-done').classList.remove('hidden');
+      const acc = (correct + wrong) > 0 ? Math.round((correct / (correct + wrong)) * 100) : 0;
+      document.getElementById('res-ok').textContent = correct;
+      document.getElementById('res-bad').textContent = wrong;
+      document.getElementById('res-acc').textContent = acc + '%';
+      document.getElementById('res-best').textContent = bestStreak;
+    }
+
+    async function updateVerbProg(base, ok) {
+      if (!window.dataSdk) return;
+      const exist = progress.find(p => p.verb_base === base);
+      if (exist) {
+        const upd = {
+          ...exist,
+          correct_count: ok ? exist.correct_count + 1 : exist.correct_count,
+          wrong_count: ok ? exist.wrong_count : exist.wrong_count + 1,
+          last_practiced: new Date().toISOString(),
+          mastered: (exist.correct_count + (ok ? 1 : 0)) >= 3
+        };
+        await window.dataSdk.update(upd);
+      } else {
+        if (progress.length >= 999) return;
+        await window.dataSdk.create({
+          verb_base: base,
+          correct_count: ok ? 1 : 0,
+          wrong_count: ok ? 0 : 1,
+          last_practiced: new Date().toISOString(),
+          mastered: false
+        });
+      }
+    }
+
+    function renderVerbs() {
+      const list = document.getElementById('verbs-list');
+      list.innerHTML = VERBS.map(v => {
+        const p = progress.find(x => x.verb_base === v.base);
+        const isMas = p?.mastered;
+        return `<div class="bg-slate-50 rounded-lg p-4 hover:shadow-md cursor-pointer" onclick="practiceSingle('${v.base}')">
+          <div class="flex justify-between items-start mb-2">
+            <span class="font-bold text-indigo-600 mono">${v.base}</span>
+            ${isMas ? '<span class="text-xl">⭐</span>' : ''}
+          </div>
+          <div class="text-sm text-slate-600">${v.trans}</div>
+          <div class="flex gap-2 text-xs mt-2">
+            <span class="bg-amber-100 text-amber-700 px-2 py-1 rounded">${v.past}</span>
+            <span class="bg-emerald-100 text-emerald-700 px-2 py-1 rounded">${v.part}</span>
+          </div>
+        </div>`;
+      }).join('');
+    }
+
+    function filterVerbs(q) {
+      const cards = document.querySelectorAll('#verbs-list > div');
+      const lq = q.toLowerCase();
+      cards.forEach(c => {
+        c.style.display = c.textContent.toLowerCase().includes(lq) ? 'block' : 'none';
+      });
+    }
+
+    function practiceSingle(base) {
+      const v = VERBS.find(x => x.base === base);
+      if (v) {
+        quizVerbs = [v];
+        qIdx = 0;
+        showSection('quiz');
+        startNewQuiz();
+      }
+    }
+
+    function updateStats() {
+      const mas = progress.filter(p => p.mastered).length;
+      const learn = progress.filter(p => !p.mastered && p.correct_count > 0).length;
+      document.getElementById('stat-mas').textContent = mas;
+      document.getElementById('stat-learn').textContent = learn;
+      document.getElementById('stat-new').textContent = VERBS.length - progress.length;
+
+      const list = document.getElementById('progress-list');
+      if (progress.length === 0) {
+        list.innerHTML = '<div class="text-center text-slate-400 py-8">Commencez un quiz pour voir votre progression !</div>';
+        return;
+      }
+
+      const sorted = [...progress].sort((a, b) => {
+        const ra = a.correct_count / (a.correct_count + a.wrong_count || 1);
+        const rb = b.correct_count / (b.correct_count + b.wrong_count || 1);
+        return ra - rb;
+      });
+
+      list.innerHTML = sorted.map(p => {
+        const tot = p.correct_count + p.wrong_count;
+        const acc = tot > 0 ? Math.round((p.correct_count / tot) * 100) : 0;
+        return `<div class="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+          <div class="flex items-center gap-2">
+            <span class="font-bold text-indigo-600 mono">${p.verb_base}</span>
+            ${p.mastered ? '<span>⭐</span>' : ''}
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="text-sm"><span class="text-emerald-600">✓ ${p.correct_count}</span> <span class="text-red-600">✗ ${p.wrong_count}</span></span>
+            <div class="w-20 h-2 bg-slate-200 rounded-full overflow-hidden">
+              <div class="h-full ${acc >= 70 ? 'bg-emerald-500' : acc >= 40 ? 'bg-amber-500' : 'bg-red-500'}" style="width: ${acc}%"></div>
+            </div>
+            <span class="text-sm font-medium w-10 text-right">${acc}%</span>
+          </div>
+        </div>`;
+      }).join('');
+    }
+
+    async function resetProgress() {
+      if (!window.dataSdk) return;
+      for (const p of progress) {
+        await window.dataSdk.delete(p);
+      }
+    }
+
+    function shuffle(arr) {
+      const s = [...arr];
+      for (let i = s.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [s[i], s[j]] = [s[j], s[i]];
+      }
+      return s;
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        if (!document.getElementById('btn-check').classList.contains('hidden')) checkAnswer();
+        else if (!document.getElementById('btn-next').classList.contains('hidden')) nextQuestion();
+      }
+    });
+
+    initApp();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d22d082c0b5de3e',t:'MTc3MTgwODcyMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
