@@ -118,7 +118,7 @@ English Verb School Edition
      <footer class="text-center text-indigo-200 py-8 mt-10">
 
 <p class="text-sm">
-© 2026 English Verb Master
+© 2026 English Verb school Edition. Tous droits reserves.
 </p>
 
 <p class="text-sm mt-2">
@@ -168,8 +168,7 @@ Sen Digital Innovation
         </div>
        </div>
       </div><!-- Quiz Mode Selector -->
-      <div class="flex justify-center gap-3 mb-8"><button onclick="setQuizMode('all')" id="mode-all" class="px-4 py-2 rounded-lg text-sm font-medium bg-indigo-100 text-indigo-700">Tous</button> <button onclick="setQuizMode('weak')" id="mode-weak" class="px-4 py-2 rounded-lg text-sm font-medium bg-slate-100 text-slate-600 hover:bg-slate-200">Points faibles</button> <button onclick="setQuizMode('new')" id="mode-new" class="px-4 py-2 rounded-lg text-sm font-medium bg-slate-100 text-slate-600 hover:bg-slate-200">Non pratiqués</button>
-      </div><!-- Quiz Card -->
+      <div class="flex justify-center gap-3 mb-8"> 
       <div id="quiz-card" class="text-center mb-8">
        <div class="mb-8">
         <div class="text-sm uppercase text-slate-400 mb-3">
@@ -441,7 +440,7 @@ Sen Digital Innovation
 
     function setQuizMode(m) {
       mode = m;
-      ['all', 'weak', 'new'].forEach(x => {
+      ['all'].forEach(x => {
         document.getElementById(`mode-${x}`).className = x === m 
           ? 'px-4 py-2 rounded-lg text-sm font-medium bg-indigo-100 text-indigo-700'
           : 'px-4 py-2 rounded-lg text-sm font-medium bg-slate-100 text-slate-600 hover:bg-slate-200';
@@ -449,7 +448,9 @@ Sen Digital Innovation
       startNewQuiz();
     }
 
-    function startNewQuiz() {
+    function startNewQuiz()
+     {
+        console.log("Progress:", progress);
       correct = wrong = streak = 0;
       qIdx = 0;
       hintUsed = false;
@@ -681,6 +682,8 @@ Sen Digital Innovation
     });
 
     initApp();
+    progress = JSON.parse(localStorage.getItem("progress")) || [];
+updateStats();
   </script>
  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d22d082c0b5de3e',t:'MTc3MTgwODcyMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
